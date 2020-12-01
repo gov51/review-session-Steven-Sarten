@@ -41,8 +41,11 @@ Name                 Description
 4. We merge the two datasets using `inner_join`, by country code (called `country_code` in `wb` and `scode` in `polity`) and year.
 
 ```{r, message=FALSE, warning=FALSE}
-
-
+wb<-read.csv("data/world_bank.csv")
+polity<-read.csv("data/polity.csv")
+polity <- subset(polity, subset =(year>= 1970 & year <= 2015), select = c("scode", "year", "polity"))
+colnames(polity) <- c("country_code", "year", "polity")
+wb_polity <- merge(wb, polity, by = c("country_code", "year"))
 
 ```
 
@@ -57,7 +60,8 @@ The distribution is right-skewed. A good idea is to take the logarithm.
 Our main independent variable is democracy (or, more precisely, political regime), measured by the Polity score (`polity`).
 
 ```{r, message=FALSE, warning=FALSE}
-
+colnames(polity) <- c("country_code", "year". "polity")
+wb_polity <- merge(wb, polity, by = c("country_code", "year"))
 
 ```
 
